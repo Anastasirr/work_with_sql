@@ -10,6 +10,12 @@ musician_id INTEGER NOT NULL REFERENCES musician(musician_id),
 genre_id INTEGER NOT NULL REFERENCES genre(genre_id)
 );
 
+CREATE TABLE IF NOT EXISTS songscollictions(
+songscollections_id SERIAL PRIMARY KEY, 
+song_id INTEGER NOT NULL REFERENCES song(song_id),
+collection_id INTEGER NOT NULL REFERENCES collection(collection_id)
+);
+
 CREATE TABLE IF NOT EXISTS musician(
 musician_id SERIAL PRIMARY KEY,
 name VARCHAR(40) NOT NULL UNIQUE
@@ -22,8 +28,8 @@ name VARCHAR (40) NOT NULL UNIQUE
 
 CREATE TABLE IF NOT EXISTS album(
 album_id SERIAL PRIMARY KEY,
-name VARCHAR(40) NOT NULL,
-year_of_release date NOT NULL CHECK (year_of_release>2000-01-01)
+name VARCHAR(40) NOT NULL, 
+year_of_release date NOT NULL CHECK (year_of_release>'2000-01-01':: date) 
 );
 
 CREATE TABLE IF NOT EXISTS song(
@@ -37,7 +43,7 @@ collection_id INTEGER NOT NULL REFERENCES collection(collection_id)
 CREATE TABLE IF NOT EXISTS collection(
 collection_id SERIAL PRIMARY KEY,
 name VARCHAR(40) NOT NULL,
-year_of_release date NOT NULL CHECK (year_of_release>2000-01-01)
+year_of_release date NOT NULL CHECK (year_of_release>'2000-01-01':: date)
 );
 
 
